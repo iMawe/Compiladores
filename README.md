@@ -17,6 +17,6 @@ Se encuentran PDFs de prácticas realizadas durante el curso de compiladores, as
 - Abrir el proyecto en caso de querer codigo de VSC
 - Compilar
 
-## **Authors**
+## **Autor**
 
 - Walther Mauricio Medina Pauca
