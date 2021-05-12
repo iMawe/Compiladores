@@ -1,0 +1,16 @@
+sapakutin
+  m=7,
+  n=85;
+
+##flgmsdglsm .,,sdf
+
+UJJINA
+  x, y, z, q, r;
+
+UNANCHALLIKU multiply;
+UJJINA a, b;
+QALLARIY
+  a := x;
+  b := y;
+  z := 0;
+TUKUKUY;

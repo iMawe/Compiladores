@@ -1,0 +1,31 @@
+program ::= block
+
+block ::= sapa_Decl ujj_Decl unan_Decl statement
+
+sapa_Decl ::= sapakitun sapa_Assignment_list ; | ''
+
+sapa_Assignment_list ::= ident = numeros | sapa_Assignment_list , ident = numeros
+
+ujj_Decl ::= ujjina ident_list ; | ''
+
+ident_list ::= ident | ident_list , ident
+
+unan_Decl ::= unan_Decl unanchalliku ident ; block ; | ''
+
+statement ::= ident := expression | waqyay ident | ari condition hinaspa statement | pacha condition ruray statement | ''
+
+statement_list ::= statement | statement_list ; statement
+
+condition ::= opeodd expression | expression relation expression
+
+relation ::= = | <> | < | > | <= | >=
+
+expression ::= term | adding_operator term | expression adding_operator term
+
+adding_operator ::= + | -
+
+term ::= factor | term multiplying_operator factor
+
+multiplying_operator ::= * | /
+
+factor ::= ident | number | (expression)

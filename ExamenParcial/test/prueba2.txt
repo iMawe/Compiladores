@@ -1,0 +1,16 @@
+UNANCHALLIKU divide;
+UJJINA w;
+QALLARIY
+  r := x;
+  q := 0;
+  w := y;
+  PACHA w <= r RURAY w := 2 * w;
+  PACHA w > y RURAY QALLARIY
+    q := 2 * q;
+    w := w / 2;
+    ARI w <= r HINASPA QALLARIY
+      r := r - w;
+      q := q + 1
+    TUKUKUY
+  TUKUKUY
+TUKUKUY;
