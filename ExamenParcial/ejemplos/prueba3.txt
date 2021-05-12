@@ -1,0 +1,8 @@
+  
+SAPAKUTIN X = 20;
+
+QALLARIY
+    ARI X >= 10 HINASPA ! 10;
+    ARI X >= 20 HINASPA ! 20;
+    ARI X >= 30 HINASPA ! 30
+TUKUKUY
