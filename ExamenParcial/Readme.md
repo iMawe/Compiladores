@@ -24,3 +24,7 @@ Un compilador en proceso, desde su gramatica, analizador lexico, sintactico, sem
 ## **Bibliografia**
 - https://www.dabeaz.com/ply/ply.html#ply_nn33
 - https://www.dabeaz.com/ply/ply.html
+- https://graphviz.org/
+- https://dreampuf.github.io/GraphvizOnline/
+- https://docs.hektorprofe.net/python/herencia-en-la-poo/ejercicios/
+- https://graphviz.readthedocs.io/en/stable/manual.html
