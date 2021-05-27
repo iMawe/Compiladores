@@ -1,3 +1,6 @@
+from typing import Literal
+
+
 txt = " "
 cont = 0
 def incremetarContador():
@@ -6,7 +9,11 @@ def incremetarContador():
 	return "%d" %cont
 
 class Nodo():
-	pass
+	def __init__(self, identifier, category, father = 'main', line = None):
+		self.identifier = identifier ##Identificador
+		self.category = category ##Funcion o Variable
+		self.line = line ##Numero de Linea
+		self.father = father ##Padre
 
 class Null(Nodo):
 	def __init__(self):
@@ -38,7 +45,7 @@ class program(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id +"[label= "+self.name+"]"+"\n\t"
+		txt += id +"[label= \""+self.name+"\"]"+"\n\t"
 
 		txt += id +"->"+son1+"\n\t"
 
@@ -117,7 +124,7 @@ class block(Nodo):
 		else:
 			son4 = self.son4.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 		txt += id + " -> " + son3 + "\n\t"
@@ -153,7 +160,7 @@ class sapaDecl(Nodo):
 
 		#son1 = self.son1.traducir()
 
-		txt += id +"[label= "+self.name+"]"+"\n\t"
+		txt += id +"[label= \""+self.name+"\"]"+"\n\t"
 		txt += id +"->"+son1+"\n\t"
 
 		return id
@@ -180,7 +187,7 @@ class sapaAssignmentList1(Nodo):
 		son2 = self.son2.traducir()
 		son3 = self.son3.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 		txt += id + " -> " + son3 + "\n\t"
@@ -212,7 +219,7 @@ class sapaAssignmentList2(Nodo):
 		son3 = self.son3.traducir()
 		son4 = self.son4.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 		txt += id + " -> " + son3 + "\n\t"
@@ -236,7 +243,7 @@ class ujjDecl1(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -257,7 +264,7 @@ class identList1(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -267,7 +274,7 @@ class identList2(Nodo):
 		self.name = name
 		self.son1 = son1
 		self.son2 = son2
-
+ 
 	def imprimir(self,ident):
 		self.son1.imprimir(" "+ident)
 		self.son2.imprimir(" "+ident)
@@ -281,7 +288,7 @@ class identList2(Nodo):
 		son1 = self.son1.traducir()
 		son2 = self.son2.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 
@@ -314,7 +321,7 @@ class unanDecl1(Nodo):
 		son2 = self.son2.traducir()
 		son3 = self.son3.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 		txt += id + " -> " + son3 + "\n\t"
@@ -343,7 +350,7 @@ class statement1(Nodo):
 		son2 = self.son2.traducir()
 		son3 = self.son3.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 		txt += id + " -> " + son3 + "\n\t"
@@ -351,9 +358,11 @@ class statement1(Nodo):
 		return id
 
 class statement2(Nodo):
-	def __init__(self,son1,name):
+	def __init__(self,son1,name,linea,cat):
 		self.name = name
 		self.son1 = son1
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		self.son1.imprimir(" "+ident)
@@ -366,15 +375,17 @@ class statement2(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
 
 class statement3(Nodo):
-	def __init__(self,son1,name):
+	def __init__(self,son1,name,linea,cat):
 		self.name = name
 		self.son1 = son1
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		self.son1.imprimir(" "+ident)
@@ -387,16 +398,18 @@ class statement3(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
 
 class statement4(Nodo):
-	def __init__(self,son1,son2,name):
+	def __init__(self,son1,son2,name,linea,cat):
 		self.name = name
 		self.son1 = son1
 		self.son2 = son2
+		self.line = linea
+		self.category = cat
 
 
 	def imprimir(self,ident):
@@ -416,17 +429,19 @@ class statement4(Nodo):
 		son1 = self.son1.traducir()
 		son2 = self.son2.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 
 		return id
 
 class statement5(Nodo):
-	def __init__(self,son1,son2,name):
+	def __init__(self,son1,son2,name,linea,cat):
 		self.name = name
 		self.son1 = son1
 		self.son2 = son2
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		self.son1.imprimir(" "+ident)
@@ -445,7 +460,7 @@ class statement5(Nodo):
 		son1 = self.son1.traducir()
 		son2 = self.son2.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 
@@ -467,7 +482,7 @@ class statementList1(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -491,7 +506,7 @@ class statementList2(Nodo):
 		son1 = self.son1.traducir()
 		son2 = self.son2.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 
@@ -513,7 +528,7 @@ class condition1(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -540,7 +555,7 @@ class condition2(Nodo):
 		son2 = self.son2.traducir()
 		son3 = self.son3.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 		txt += id + " -> " + son3 + "\n\t"
@@ -551,7 +566,6 @@ class relation1(Nodo):
 	def __init__(self,son1,name):
 		self.name = name
 		self.son1 = son1
-
 	def imprimir(self,ident):
 		self.son1.imprimir(" "+ident)
 
@@ -563,7 +577,7 @@ class relation1(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -584,7 +598,7 @@ class relation2(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -605,7 +619,7 @@ class relation3(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -626,7 +640,7 @@ class relation4(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -647,7 +661,7 @@ class relation5(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -668,7 +682,7 @@ class relation6(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -689,7 +703,7 @@ class expression1(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -713,7 +727,7 @@ class expression2(Nodo):
 		son1 = self.son1.traducir()
 		son2 = self.son2.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 
@@ -741,7 +755,7 @@ class expression3(Nodo):
 		son2 = self.son2.traducir()
 		son3 = self.son3.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 		txt += id + " -> " + son3 + "\n\t"
@@ -764,7 +778,7 @@ class addingOperator1(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -785,7 +799,7 @@ class addingOperator2(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ "\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -806,7 +820,7 @@ class term1(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -833,7 +847,7 @@ class term2(Nodo):
 		son2 = self.son2.traducir()
 		son3 = self.son3.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 		txt += id + " -> " + son2 + "\n\t"
 		txt += id + " -> " + son3 + "\n\t"
@@ -856,7 +870,7 @@ class multiplyingOperator1(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -877,7 +891,7 @@ class multiplyingOperator2(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -898,7 +912,7 @@ class factor1(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -919,7 +933,7 @@ class factor2(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
@@ -940,14 +954,16 @@ class factor3(Nodo):
 
 		son1 = self.son1.traducir()
 
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
 		txt += id + " -> " + son1 + "\n\t"
 
 		return id
 
 class Id(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"ID: "+self.name)
@@ -955,13 +971,15 @@ class Id(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= "+self.name+"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Assign(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 
@@ -972,13 +990,15 @@ class Assign(Nodo):
 		global txt
 		id = incremetarContador()
 		
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Noigualq(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"NE: "+self.name)
@@ -986,13 +1006,15 @@ class Noigualq(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Menorq(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"LT: "+self.name)
@@ -1000,13 +1022,15 @@ class Menorq(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Mayorq(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"GT: "+self.name)
@@ -1014,13 +1038,15 @@ class Mayorq(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Menoiguq(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"LTE: "+self.name)
@@ -1028,13 +1054,15 @@ class Menoiguq(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Mayoiguq(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"GTE: "+self.name)
@@ -1042,13 +1070,15 @@ class Mayoiguq(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Opesuma(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"Plus: "+self.name)
@@ -1056,13 +1086,15 @@ class Opesuma(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Operesta(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"Minus: "+self.name)
@@ -1070,13 +1102,15 @@ class Operesta(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Opemult(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"Times: "+self.name)
@@ -1084,13 +1118,15 @@ class Opemult(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Opediv(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"Divide: "+self.name)
@@ -1098,13 +1134,15 @@ class Opediv(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Update(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
 
 	def imprimir(self,ident):
 		print (ident+"Update: "+self.name)
@@ -1112,13 +1150,16 @@ class Update(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= \""+self.name+"\"]"+"\n\t"
+		txt += id + "[label= \""+self.name+ " \\" + "n Linea: " + str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
 class Numeros(Nodo):
-	def __init__(self,name):
+	def __init__(self,name,linea,cat):
 		self.name = name
+		self.line = linea
+		self.category = cat
+		#print("\\n \\n \\n \\n \\n"+str(self.line) + self.category+"\\n \\n \\n \\n \\n")
 
 	def imprimir(self,ident):
 		print (ident+"Number: "+str(self.name))
@@ -1126,7 +1167,7 @@ class Numeros(Nodo):
 	def traducir(self):
 		global txt
 		id = incremetarContador()
-		txt += id + "[label= "+str(self.name)+"]"+"\n\t"
+		txt += id + "[label= \""+str(self.name)+ " \\" + "n Linea: " +str(self.line)+ " \\" + "n Categoria: " + self.category+"\"]"+"\n\t"
 
 		return id
 
