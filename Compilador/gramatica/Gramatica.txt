@@ -1,0 +1,35 @@
+PROGRAM ::= BLOCK
+
+BLOCK ::= "uma" "(" ")" "{" UJJ_DECL+ STATEMENT+ "}"
+
+UJJ_DECL ::= TYPE "id" ";"
+
+TYPE ::= "hun" | "chillu"
+
+STATEMENT ::= "id" "=" E ";" | IF_DECL | WHILE_DECL | FOR_DECL | ''
+
+E ::= T E'
+
+E' ::= OPER T E' | empty
+
+T ::= TERM | ( E )
+
+IF_DECL ::= "ari" ( COMPARATION ) { E } | "ari" ( COMPARATION ) { E } SHUC_DECL
+
+SHUC_DECL ::= "shuc" { E } | empty
+
+WHILE_DECL ::= "pacha" ( COMPARATION ) { E }
+ 
+FOR_DECL ::= "hayaq" ( F ";" COMPARATION ";" "id" ++ ) { E }
+
+F ::= int TERM = DOS
+
+DOS ::= TERM
+
+COMPARATION ::= TERM OPER_COMP TERM
+
+OPER_COMP ::= "==" | "<>" | "<" | ">" | "<=" | ">="
+
+TERM ::= id | num
+
+OPER ::= "|" | "&" | "+" | "-" | "*" | "/" | "%"
