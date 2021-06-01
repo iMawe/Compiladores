@@ -37,7 +37,7 @@ def print_tree(node, node_list, info = False):
     for nod in node_list:
         if nod.symbol.is_terminal:
             if nod.symbol.symbol == 'e':
-                dot += str(nod.symbol.id) + ' [ style=filled fillcolor=green  label=< <b>' + nod.symbol.symbol + '</b> ]; \n'
+                dot += str(nod.symbol.id) + ' [ style=filled fillcolor=green  label=< <b>' + nod.symbol.symbol + '</b> > ]; \n'
             else:
                 lexeme = nod.lexeme
                 lexeme = "&#38;" if lexeme == '&' else nod.lexeme
@@ -45,7 +45,7 @@ def print_tree(node, node_list, info = False):
         
         else:#ANALIZADOR SEMANTICO
 
-            if info and (nod.symbol.symbol == 'E' or nod.symbol.symbol == 'T' or nod.symbol.symbol == "E'" or nod.symbol.symbol == 'TERM' or nod.sumbol.symbol == 'IF_DECL' or nod.symbol.symbol == 'WHILE_DECL' or nod.symbol.symbol == 'FOR_DECL'):
+            if info and (nod.symbol.symbol == 'E' or nod.symbol.symbol == 'T' or nod.symbol.symbol == "E'" or nod.symbol.symbol == 'TERM'): #or nod.sumbol.symbol == 'IF_DECL' or nod.symbol.symbol == 'WHILE_DECL' or nod.symbol.symbol == 'FOR_DECL'):
                 lexeme = nod.lexeme
                 lexeme = "&#38;" if lexeme == '&' else nod.lexeme
 
@@ -59,6 +59,8 @@ def print_tree(node, node_list, info = False):
     
     print_tree_recursive(node)
     dot += "}"
+
+    print(dot)
 
     graph = graphviz.Source(dot, format= 'png')
     graph.render("tree.png", view=True)
