@@ -1,4 +1,3 @@
-from ll1profe import node_parser, node_stack, print_tree_recursive
 from AnalizadorLex import get_tokens
 import sys
 import pandas as pd
