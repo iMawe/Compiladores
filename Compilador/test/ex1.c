@@ -1,7 +1,9 @@
 uma ( ) { 
-    hunta x;
-    hunta y;
+    hun x;
+    hasun y;
+    hun z;
 
     x = 5;
-    y = x + 10;
+    y = x;
+    z = x + y;
 }

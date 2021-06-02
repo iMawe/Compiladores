@@ -27,11 +27,13 @@ reservadas = {
 tokens = [
     'num',
     'boolean',
+    'opemasmas',
     'opesuma',
     'opemenos',
     'opemult',
     'opediv',
     'opemod',
+    'igualq',
     'noigualq',
     'menorq',
     'menoriguq',
@@ -48,6 +50,7 @@ tokens = [
     'comma',
     'dotcomma',
 ] + list(reservadas.values())
+
 #  'MAYORQ', #GT
 #     'MAYOIGUQ',#GTE
 #     'MENORQ', #LT
@@ -57,6 +60,7 @@ tokens = [
 #tokens = tokens+reservadas
 
 t_ignore     = " \t" # Caracteres ignorados
+t_opemasmas  = r'\+\+'
 t_opesuma    = r'\+'
 t_opemenos   = r'\-'
 t_opemult    = r'\*'
@@ -65,6 +69,7 @@ t_opemod     = r'%'
 t_and        = r'&'
 t_or         = r'\|'
 t_assign     = r'='
+t_igualq     = r'=='
 t_noigualq   = r'<>'
 t_menorq     = r'<'
 t_menoriguq   = r'<='

@@ -45,7 +45,7 @@ def print_tree(node, node_list, info = False):
         
         else:#ANALIZADOR SEMANTICO
 
-            if info and (nod.symbol.symbol == 'E' or nod.symbol.symbol == 'T' or nod.symbol.symbol == "E'" or nod.symbol.symbol == 'TERM'): #or nod.sumbol.symbol == 'IF_DECL' or nod.symbol.symbol == 'WHILE_DECL' or nod.symbol.symbol == 'FOR_DECL'):
+            if info and (nod.symbol.symbol == 'E' or nod.symbol.symbol == 'T' or nod.symbol.symbol == "E'" or nod.symbol.symbol == 'TERM' or nod.sumbol.symbol == 'IF_DECL' or nod.symbol.symbol == 'WHILE_DECL' or nod.symbol.symbol == 'FOR_DECL'):
                 lexeme = nod.lexeme
                 lexeme = "&#38;" if lexeme == '&' else nod.lexeme
 
@@ -60,7 +60,7 @@ def print_tree(node, node_list, info = False):
     print_tree_recursive(node)
     dot += "}"
 
-    print(dot)
+    #print(dot)
 
     graph = graphviz.Source(dot, format= 'png')
     graph.render("tree.png", view=True)
@@ -157,15 +157,19 @@ def parser(tokens):
                 tokens.pop(0)
             else:
                 result = False
-                print("Syntax FATAL ERROR ar line ", tokens[0][2])
+                print("Syntax FATAL ERROR 1 at line ", tokens[0][2])
                 break
         else:
             if not update_stack(root, node_list, syntax_table, stack, tokens[0][0]):
                 result = False
-                print("Syntax FATAL ERROR at line ", tokens[0][2])
+                print("Syntax FATAL ERROR 2 at line ", tokens[0][2])
                 break
-    
-    print_tree(root, node_list)
+    if(result == False):
+        print("no pertenece al lenguaje")
+    elif(result == True):
+        print_tree(root, node_list)
+        print("si pertenece al lenguaje")
+
     return root, node_list
 
 if __name__ == "__main__":
