@@ -19,10 +19,13 @@ Un compilador en proceso, desde su gramatica, analizador lexico, sintactico, sem
 
 ## **Autores**
 
-- Walther Mauricio Medina Pauca
-- 
+- Avila Gonzales, Hector Antonio 
+- Bravo Saines, Valeria Esperanza
+- Medina Pauca, Walther Mauricio
+- Olazabal Paredes, Tais Mariangeles 
 
 ## **Bibliografia**
+
 - https://www.dabeaz.com/ply/ply.html#ply_nn33
 - https://www.dabeaz.com/ply/ply.html
 - https://graphviz.org/
