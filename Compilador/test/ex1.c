@@ -1,6 +1,6 @@
 uma ( ) { 
     hun x;
-    hasun y;
+    hun y;
     hun z;
 
     x = 5;
