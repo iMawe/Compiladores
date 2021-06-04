@@ -1,6 +1,7 @@
 import ply.lex as lex
 import sys
 
+
 reservadas = {
     'uma' : 'uma',
     'hun' : 'hun',

@@ -1,35 +1,56 @@
 PROGRAM ::= BLOCK
-
-BLOCK ::= "uma" "(" ")" "{" UJJ_DECL+ STATEMENT+ "}"
-
-UJJ_DECL ::= TYPE "id" ";"
-
-TYPE ::= "hun" | "chillu"
-
-STATEMENT ::= "id" "=" E ";" | IF_DECL | WHILE_DECL | FOR_DECL | ''
-
+BLOCK ::= FUNCTION_M uma parenl parenr keyl LIST_STATEMENT keyr
+FUNCTION_M  ::= FUNCTION FUNCTION_M
+FUNCTION_M  ::= ''
+FUNCTION ::= TYPE unan id parenl PARAM_DEF_M parenr keyl LIST_STATEMENT RETURN keyr
+PARAM_DEF_M ::= TYPE id PARAM_DEF 
+PARAM_DEF_M ::= ''
+PARAM_DEF ::= comma TYPE id PARAM_DEF
+PARAM_DEF ::= ''
+PARAM_M ::= E PARAM_E
+PARAM_M ::= ''
+PARAM_E ::= comma E PARAM_E
+PARAM_E ::= ''
+RETURN ::= chaya E dotcomma
+TYPE ::= hun 
+TYPE ::= chillu
+LIST_STATEMENT ::= STATEMENT LIST_STATEMENT
+LIST_STATEMENT ::= ''
+STATEMENT ::= id assign E dotcomma
+STATEMENT ::= TYPE DECL
+DECL ::= id dotcomma
+DECL ::= FUNC_DECL
+STATEMENT ::= IF_DECL 
+STATEMENT ::= WHILE_DECL 
+STATEMENT ::= FOR_DECL 
 E ::= T E'
-
-E' ::= OPER T E' | empty
-
-T ::= TERM | ( E )
-
-IF_DECL ::= "ari" ( COMPARATION ) { E } | "ari" ( COMPARATION ) { E } SHUC_DECL
-
-SHUC_DECL ::= "shuc" { E } | empty
-
-WHILE_DECL ::= "pacha" ( COMPARATION ) { E }
- 
-FOR_DECL ::= "hayaq" ( F ";" COMPARATION ";" "id" ++ ) { E }
-
-F ::= int TERM = DOS
-
-DOS ::= TERM
-
+E' ::= OPER T E' 
+E' ::= ''
+T ::= parenl E parenr
+T ::= TERM
+IF_DECL ::= ari parenl COMPARATION parenr keyl E keyr SHUC_DECL
+SHUC_DECL ::= shuc keyl E keyr 
+SHUC_DECL ::= ''
+WHILE_DECL ::= pacha parenl COMPARATION parenr keyl E keyr
+FOR_DECL ::= haykaq parenl F dotcomma COMPARATION dotcomma id opemasmas parenr keyl E keyr
+F ::= int UNO assign TERM
 COMPARATION ::= TERM OPER_COMP TERM
-
-OPER_COMP ::= "==" | "<>" | "<" | ">" | "<=" | ">="
-
-TERM ::= id | num
-
-OPER ::= "|" | "&" | "+" | "-" | "*" | "/" | "%"
+OPER_COMP ::= igualq 
+OPER_COMP ::= noigualq
+OPER_COMP ::= menorq
+OPER_COMP ::= mayorq 
+OPER_COMP ::= menoriguq
+OPER_COMP ::= mayoiguq
+TERM ::= id TERM_FUNC
+TERM ::= num
+TERM ::= boolean
+TERM_FUNC ::= parenl PARAM_M parenr
+TERM_FUNC ::= ''
+UNO ::= id 
+OPER ::= or 
+OPER ::= and
+OPER ::= opesuma 
+OPER ::= opemenos
+OPER ::= opemult
+OPER ::= opediv 
+OPER ::= opemod

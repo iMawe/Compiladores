@@ -14,7 +14,6 @@ dot = ''
 def print_stack(stack):
     print("STACK -> ", end='')
     for element in stack:
-        #print(element.symbol + ':' + str(element.is_terminal), end=' ')
         print(element.symbol, end=' ')
     print()
 
@@ -24,7 +23,6 @@ def print_input(input):
         print(element[0], end=' ')
     print()
 
-# retorna un nodo del arbol suntáctico segun el id
 def find_in_tree(node_list, id):
     for nod in node_list:
         if nod.symbol.id == id:
@@ -37,7 +35,7 @@ def print_tree(node, node_list, info = False):
     for nod in node_list:
         if nod.symbol.is_terminal:
             if nod.symbol.symbol == 'e':
-                dot += str(nod.symbol.id) + ' [ style=filled fillcolor=green  label=< <b>' + nod.symbol.symbol + '</b> > ]; \n'
+                dot += str(nod.symbol.id) + ' [ style=filled fillcolor=yellow  label=< <b>' + nod.symbol.symbol + '</b> > ]; \n'
             else:
                 lexeme = nod.lexeme
                 lexeme = "&#38;" if lexeme == '&' else nod.lexeme
@@ -165,6 +163,7 @@ def parser(tokens):
                 print("Syntax FATAL ERROR 2 at line ", tokens[0][2])
                 break
     if(result == False):
+        print_tree(root, node_list)
         print("no pertenece al lenguaje")
     elif(result == True):
         print_tree(root, node_list)
