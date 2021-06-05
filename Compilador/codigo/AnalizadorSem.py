@@ -154,7 +154,7 @@ def setTypeE(node):
                 node_TERM.children[0].type = 'hun'
             elif node_TERM.children[0].symbol.symbol == 'id':
                 lex = findSTT(node_TERM.children[0].lexeme)
-                print("IMPRIMIENDO LEX ", lex)
+                #print("IMPRIMIENDO LEX ", lex)
                 if lex:
                     node_TERM.children[0].type = lex
             elif node_TERM.children[0].symbol.symbol == 'boolean':
