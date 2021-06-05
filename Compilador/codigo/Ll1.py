@@ -39,7 +39,7 @@ def print_tree(node, node_list, info = False):
             else:
                 lexeme = nod.lexeme
                 lexeme = "&#38;" if lexeme == '&' else nod.lexeme
-                dot += str(nod.symbol.id) + ' [ style=filled fillcolor=yellow  label=< <b>' + nod.symbol.symbol + '</b> <br/>' + str(lexeme) + ' <br/> line ' + str(nod.line) + ' > ]; \n'
+                dot += str(nod.symbol.id) + ' [ style=filled fillcolor=yellow  label=< <b>' + nod.symbol.symbol + '</b> <br/>' + str(lexeme) + ' <br/> line ' + str(nod.line)  + '<br/>' + str(nod.type)+' > ]; \n' #+ '<br/>' + str(nod.type)
         
         else:#ANALIZADOR SEMANTICO
 
@@ -125,7 +125,6 @@ class node_parser:
         self.children = childern
         self.father = father
         self.type = None
-        self.visited = False
 
 syntax_table = pd.read_csv("sytax_table.csv", index_col=0)
 
@@ -163,10 +162,9 @@ def parser(tokens):
                 print("Syntax FATAL ERROR 2 at line ", tokens[0][2])
                 break
     if(result == False):
-        print_tree(root, node_list)
         print("no pertenece al lenguaje")
     elif(result == True):
-        print_tree(root, node_list)
+        #print_tree(root, node_list)
         print("si pertenece al lenguaje")
 
     return root, node_list
