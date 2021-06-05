@@ -1,0 +1,12 @@
+hun unan funcion1 ( ) {
+    hun v;
+    chaya v;
+}
+
+uma ( ) { 
+    hun x;
+    hun y;
+    y = 5;
+    x = 5 + y + 1;
+
+}
