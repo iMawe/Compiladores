@@ -118,11 +118,11 @@ class node_stack:
         counter += 1
 
 class node_parser:
-    def __init__(self, symbol, lexeme = None, childern = [], father = None, line = None):
+    def __init__(self, symbol, lexeme = None, children = [], father = None, line = None):
         self.symbol = symbol
         self.lexeme = lexeme
         self.line = line
-        self.children = childern
+        self.children = children
         self.father = father
         self.type = None
 

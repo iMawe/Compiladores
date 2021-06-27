@@ -1,0 +1,13 @@
+uma ( ) { 
+    hun x;
+    hun y;
+    hun z;
+    chillu a;
+    chillu b;
+    x =5 + 2 - 3 * 7;
+    y = 2 / 1;
+    z = 8 % 2;
+    a = true;
+    b = false;
+
+}

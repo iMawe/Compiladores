@@ -3,8 +3,8 @@ uma ( ) {
     hun y;
     chillu z;
 
-    x = 5;
-    y = x;
+    x = 5 + 3;
+    y = 6 % 2;
     z = true;
     
 }
