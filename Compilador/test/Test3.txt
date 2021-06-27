@@ -1,0 +1,10 @@
+uma ( ) { 
+    hun x;
+    hun y;
+    chillu z;
+
+    x = 5;
+    y = x;
+    z = true;
+    
+}

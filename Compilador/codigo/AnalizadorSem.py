@@ -110,8 +110,6 @@ def setType(node):
                 node_tp = primer_hijo.children[0]
                 primer_hijo.father.children[1].children[0].type = node_tp.lexeme
             
-            
-
     if node.symbol.symbol == 'FUNCTION':
         if len(node.children) > 0:
             node_type = node.children[0].children[0]
