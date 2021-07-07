@@ -1,0 +1,10 @@
+hun unan muestra(){
+    hun y;
+    chaya f;
+}
+
+uma (){
+    hun x;
+    x = 5 + 3;
+    muestra();
+}

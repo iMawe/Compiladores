@@ -1,0 +1,9 @@
+hun unan muestra(hun y){
+  chaya y + 5;
+}
+uma (){
+    hun x;
+    hun y;
+    y = 2 +3;
+    x = muestra(4);
+}
