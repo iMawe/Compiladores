@@ -6,16 +6,88 @@ import pandas as pd
 
 file_out = open ("code.s","w")
 
+#anotaciones de funcion: cuando llamamos a la funcion dentro de la funcion aparece  como no pertenece
+#¿donde definimos dos veces una varible? xd
 def genera_assembler(root):
     file_out.write(".data\n")
     crea_variable(root)#escribe cada variable
     file_out.write(".text\nmain:\n")
-    generar_assing(root)
+    generar_uma(root)
+    #generar_assing(root)
+    #generar_block(root)
+    generar_funcionM(root)
     file_out.write("\n \tjr $ra ")
 
+def generar_block(node):
+    if node.symbol.symbol == 'BLOCK':
+        print("encontre un block")
+        #generar_funcionM(node.children[0])
+        generar_uma(node)
+    for child in node.children:
+        generar_block(child)
+
+def generar_funcionM(node):
+    if node.symbol.symbol == 'FUNCTION_M':
+        print("encontre una funcionM")
+        node_f=node.children[0]
+        generar_funcion(node_f)
+        #generar_exprT(node)
+    for child in node.children:
+            generar_funcionM(child)
+
+def generar_funcion(node):
+    print("encontre una funcion ") 
+    if node.children[0].symbol.symbol=='TYPE':
+        print("encontre un type")
+    if node.children[2].symbol.symbol=='id':
+        print("encontre un id")
+        node_nomF=node.children[2].lexeme
+        print(node_nomF)
+        file_out.write("\n"+str(node_nomF)+":\n")
+    if node.children[4].symbol.symbol=="PARAM_DEF_M":
+        print("encontre un param_def_M")
+        node_param=node.children[4]
+        generar_param_def_M(node_param)
+    #debo ir a return y luego a t y eprima
+    if node.children[8].symbol.symbol=="RETURN":
+        print("encontre un return")
+        node_ex=node.children[8]
+        generar_expr(node_ex.children[1])
+        #print(node_ex.children[1].symbol.symbol)
+        file_out.write("\n \tlw $ra 4($sp)")
+        file_out.write("\n \taddiu $sp $sp 12")
+        file_out.write("\n \tlw $fp 0($sp)")
+
+def generar_param_def_M(node):
+     print("parametros")
+     if len(node.children)>0:
+      file_out.write("\tmove $fp $sp\n")
+      file_out.write("\n \tsw $ra 0 $sp"+"\n")
+      file_out.write("\taddiu $sp $sp -4 \n")
+      file_out.write("\n \tlw $a0, 8($sp) \n")
+    
+def generar_uma(node):#####
+    if node.symbol.symbol == 'STATEMENT':
+         node_sh = node.children[0]
+         print("encontre un statement")
+         generar_statement(node_sh)
+    for child in node.children:
+        generar_uma(child)
+
+def generar_statement(node):
+    node_s = node.children[0]
+    print("encontre el assing")
+    generar_assing(node)#una vez que acabe esto debe votar las linea
+    file_out.write("\n \tli $v0, 1\n")
+    file_out.write("\n \tsyscall\n")
+
 def crea_variable (node):
-    if node.symbol.symbol == "TYPE":
-        escribe_id (node.father.children[1].children[0])#va al derecho
+    #if len(node.children) > 0:
+    if node.symbol.symbol == 'TYPE':
+        if node.father.symbol.symbol == 'STATEMENT':
+            #print("ESTO ESTA IMPRIMIENDO", node.father.children[1].children[0].symbol.symbol)
+            #print(len(node.children))
+            escribe_id(node.father.children[1].children[0])#va al derecho
         
     for child in node.children:
         crea_variable(child)
@@ -25,11 +97,12 @@ def escribe_id (node):#en el archivo de salida escribe var y lo demas , node es 
 
 def generar_assing(node):
     if node.symbol.symbol == "assign":
-        #print("sign")
-        node_e=node.father.children[2]
-        node_id=node.father.children[0]
+        print("sign")
+        node_e = node.father.children[2]
+        node_id = node.father.children[0]
         generar_exprT(node_e.children[0])
         generar_exprE_prima(node_e.children[1])
+        #file_out.write("\n \tjal")
         file_out.write("\n\tla  $t1, var_"+ str(node_id.lexeme)+ "\n"+"\tsw  $a0, 0($t1)\n")
         #registrar_operandos(node)#tiene que ir en un for pero cuando lo pongo me sale fallas
     for child in node.children:
@@ -58,6 +131,7 @@ def generar_exprT(node):
     print(node.symbol.symbol)
     if node.children[0].symbol.symbol=="TERM":
         #print("genero codigo para term")
+        #file_out.write("\n\tja")
         generar_terminal(node.children[0])
     elif node.children[0].symbol.symbol=="parenl":
         print()
@@ -111,7 +185,7 @@ def generar_exprE_prima(node):
         #print("mas de 1")
         generar_exprE_prima(node.children[2])
 
-     
+
 if __name__ == "__main__":
     file_name=sys.argv[0]
 
@@ -126,7 +200,9 @@ if __name__ == "__main__":
     findVal(root)#check_nodes(root)
     #set_types(root)
     #code generation
+    generar_block(root)
     genera_assembler(root)
+
     file_out.close()
 
     #print_tree(root, node_list, True)
